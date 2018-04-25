@@ -2,8 +2,8 @@
 #ifndef ARTICULO_H
 #define ARTICULO_H
 #include <iostream>
-#include <../P1/fecha.hpp>
-#include <../P1/cadena.hpp>
+#include "fecha.hpp"
+#include "cadena.hpp"
 
 class Articulo {
 
@@ -16,7 +16,7 @@ public:
   unsigned stock() const {return num_ejemplares;}
   double& precio()  {return p;}
   unsigned& stock() {return num_ejemplares;}
-
+  
 
 private:
     Fecha f;
