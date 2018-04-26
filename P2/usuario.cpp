@@ -60,5 +60,5 @@ Usuario::~Usuario()
 
 void compra (Articulo& a,unsigned cant = 1)
 {
-
+  hola;
 }
