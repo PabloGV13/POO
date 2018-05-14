@@ -2,13 +2,17 @@
 #ifndef ARTICULO_H
 #define ARTICULO_H
 #include <iostream>
+#include <cstring>
 #include "../P1/fecha.hpp"
 #include "../P1/cadena.hpp"
-
+using namespace std;
 class Articulo {
 
 public:
-  Articulo(Cadena r, Cadena tit, Fecha fe, double pr, unsigned s): f(fe), cod_refer(r),t(tit), p(pr),num_ejemplares(s){}
+
+  explicit Articulo(const Cadena& r,const Cadena& tit,const Fecha& fe, double pr, unsigned s):
+  f(fe),cod_refer(r),t(tit),p(pr),num_ejemplares(s){}
+
   Fecha f_publi() const {return f;}
   Cadena referencia()const {return cod_refer;}
   Cadena titulo() const {return t;}

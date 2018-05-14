@@ -4,7 +4,7 @@
 #include <cstring>
 #include <stdexcept>
 #include <iterator>
-
+#include <functional>
 
 using namespace std;
 
@@ -83,5 +83,14 @@ bool operator > (const  Cadena& c1, const Cadena& c2)noexcept;
 bool operator < (const Cadena& c1, const Cadena& c2)noexcept;
 bool operator >= (const Cadena& c1, const Cadena& c2)noexcept;
 bool operator <= (const Cadena& c1, const Cadena& c2)noexcept;
+
+namespace std {
+template <> struct hash<Cadena> {
+size_t operator()(const Cadena& cad) const
+{ // conversión const char* ->string
+return hash<string>{}(cad.c_str());
+}
+};
+}
 
 #endif

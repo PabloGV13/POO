@@ -1,19 +1,20 @@
 #ifndef TARJETA_H
 #define TARJETA_H
 #include <iostream>
+#include <cstring>
 #include "../P1/fecha.hpp"
 #include "../P1/cadena.hpp"
 #include "usuario.hpp"
-#include "articulo.hpp"
-class Usuario;
-class Articulo;
-
-bool luhn(const Cadena& numero);
 
 class Numero {
 
   public:
+
     enum Razon {LONGITUD, DIGITOS, NO_VALIDO};
+    Numero(Cadena n);
+    operator const char*() const{return num.c_str();}
+    friend bool operator < (const Numero& n1, const Numero& n2);
+
     class Incorrecto{
       public:
         Incorrecto(Razon raz): r(raz){}
@@ -21,49 +22,53 @@ class Numero {
       private:
         Razon r;
     };
-    Numero(Cadena& n);
-    operator const char*() {return num.c_str();}
-    friend bool operator < (const Numero& n1, const Numero& n2);
   private:
     Cadena num;
 
 };
 
 
-
+class Usuario;
 
 class Tarjeta {
   public:
     enum Tipo {VISA, Mastercard, Maestro, JCB, AmericanExpress};
     class Caducada {
       public:
-        Caducada (Fecha& fech): caducada(fech){}
+        Caducada(const Fecha& cad): caducada(cad){}
         Fecha cuando() const {return caducada;}
       private:
         Fecha caducada;
     };
-    ~Tarjeta(){}
+
+    Tarjeta(Tipo tip, const Numero& num, Usuario& u,const Fecha& f);
+
     Tarjeta(const Tarjeta& t) = delete;
-    Tarjeta(Tipo tip, Numero num, Usuario u, Fecha f);
+    Tarjeta& operator = (const Tarjeta&) = delete;
+
+
+    Tipo tipo() const {return t;}
     Numero numero() const {return n;}
+     const Usuario* titular() const{ return tit;}
     Fecha caducidad() const {return cad;}
     Cadena titular_facial() const {return n_completo;}
-    void anular_titular(Usuario& u) {}
 
+    void anula_titular() {tit = nullptr;}
+
+    ~Tarjeta();
   private:
     Tipo t;
     Numero n;
-    Usuario* tit;
-    Fecha f_;
+    const Usuario* tit;
+    Fecha cad;
     Cadena n_completo;
+
 
 };
 
-
-
-
-
-
+bool operator < (const Tarjeta& t1, const Tarjeta& t2);
+std::ostream& operator << (std::ostream& os,const Tarjeta::Tipo& tip);
+std::ostream& operator << (std::ostream& os,const Tarjeta& t);
 
 
 #endif
