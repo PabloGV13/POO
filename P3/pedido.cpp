@@ -1,25 +1,25 @@
 #include "pedido.hpp"
-#include "../P1/fecha.hpp"
-#include "../P2/tarjeta.hpp"
-#include "../P2/articulo.hpp"
-#include ""
+#include "usuario-pedido.hpp"
+#include "pedido-articulo.hpp"
+
+int Pedido::N_pedidos = 0;
 
 Pedido::Pedido(Usuario_Pedido & usuario_pedidos,
               Pedido_Articulo& pedido_articulo,
               Usuario& u, const Tarjeta& t, const Fecha& fp)
 :num_(N_pedidos + 1), tarjeta_(&t), fecha_(fp), total_(0)
 {
-  if (u.n_articulo() == 0) //¿Carrito vacio?
+  if (u.n_articulos() == 0) //¿Carrito vacio?
   {
     throw Vacio(u);
   }
   if (t.titular() != &u) //Falso hijo de perra
   {
-    throw Impostor(u)
+    throw Impostor(u);
   };
   if (t.caducidad() < fp)
   {
-    throw Tarjeta::Caducada(t.caducidad())
+    throw Tarjeta::Caducada(t.caducidad());
   };
 
   for (auto c : u.compra()) //c es pair<Articulo*, unsigned> (cantidad)
@@ -44,4 +44,14 @@ Pedido::Pedido(Usuario_Pedido & usuario_pedidos,
   }
   usuario_pedidos.asocia(u, *this);
   ++N_pedidos;
+}
+
+std::ostream& operator <<(std::ostream& os, const Pedido& pe)
+{
+  os << "Núm. pedido: " << pe.numero() << std::endl
+    << "Fecha: " << pe.fecha() << std::endl
+    << "Pagado con: " << *pe.tarjeta() << std::endl
+    << "Importe: " << std::fixed << std::setprecision(2) << pe.total() << " €";
+
+    return os;
 }

@@ -5,7 +5,6 @@
 #include "../P1/fecha.hpp"
 #include "../P1/cadena.hpp"
 #include <cstring>
-#include <stdexcept>
 class Articulo {
 
 public:
