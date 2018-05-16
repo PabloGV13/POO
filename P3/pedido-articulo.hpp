@@ -46,8 +46,8 @@ class Pedido_Articulo{
     std::map<Articulo*, Pedidos, OrdenaArticulos> articulo_pedido_;
 };
 
-std::ostream& operator << (std::ostream& os,Pedido_Articulo::ItemsPedido items_pedidos);
-std::ostream& operator << (std::ostream& os,Pedido_Articulo::Pedidos items_pedidos);
+std::ostream& operator << (std::ostream& os,const Pedido_Articulo::ItemsPedido& items_pedidos);
+std::ostream& operator << (std::ostream& os,const Pedido_Articulo::Pedidos& pedidos_);
 
 
 
