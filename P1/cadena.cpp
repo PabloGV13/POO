@@ -2,8 +2,6 @@
 
 Cadena::Cadena (unsigned tam, char c) :s_(new char [tam+1]), tam_(tam)
 {
-	s_ = new char [tam +1 ];
-	tam_ = tam;
 	for(unsigned i = 0; i < tam; ++i)
 	{
 		s_[i] = c;
@@ -180,26 +178,20 @@ ostream& operator << (ostream& o,const Cadena& cad)noexcept
 	return o;
 }
 
-istream& operator >> (istream& i, Cadena& cad)noexcept
+istream& operator >> (istream& is, Cadena& cad)noexcept
 {
-	char* c_ = new char[31];
-	while(isspace(i.get())){}
-	i.unget();
-	int j = 0;
-	while(!isspace(i.peek()) && j < 32 && i.good())
-	{
-		c_[j]=i.get();
-		j++;
-	}
-	c_[j] = '\0';
-	if(j != 0){
-		cad = Cadena(c_);
-	}
-	else {
-		cad = Cadena();
-	}
-	delete[] c_;
-
-	return i;
+	char* tmp = new char[33];
+  int i = 0;
+  char aux;
+  while(isspace(is.get()) && is.good()){}
+  is.unget();
+  while (i < 32 && !isspace(is.peek()) && is.good() && is.peek() != '\n' && is.peek()!='\0') {
+    aux=is.get();
+    if(is.good()) tmp[i++]=aux;
+  }
+  tmp[i]='\0';
+  cad = tmp;
+  delete[] tmp;
+  return is;
 
 }

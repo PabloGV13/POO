@@ -159,36 +159,32 @@ ostream& operator << (ostream& o,const Fecha& f)
 	return o;
 }
 
-istream& operator >> (istream& i, Fecha& f)
+istream& operator >> (istream& is, Fecha& f)
 {
-	char* cad = new char[11];
-	i.getline(cad,11);
-	try
-	{
-		f = Fecha(cad);
-	}catch (Fecha::Invalida& e){
-		i.setstate(ios_base::failbit);
-		throw;
-	}
-	return i;
+	char tmp[11];
+  is.getline(tmp,11);
+  try{
+    f = Fecha(tmp);
+  }catch(const Fecha::Invalida& e){
+    is.setstate(std::ios_base::failbit);
+    throw;
+  }
+  return is;
 }
 
 const char* Fecha::cadena()const
 {
 
-	tm hoy = {0};
-	char* cad = new char[40] ;
-
-	hoy.tm_mday = this->d;
-	hoy.tm_mon = this->m - 1;
-	hoy.tm_year = this->a - 1900;
-
-	std::setlocale(LC_TIME,"es_ES.UTF-8");
-	mktime(&hoy);
-
-	std::strftime(cad,40,"%A %d de %B de %Y",&hoy);
-
-	return cad;
+	static char B[50];
+  std::tm tiempo_descompuesto;
+  tiempo_descompuesto={0};
+  tiempo_descompuesto.tm_mday=this->d;
+  tiempo_descompuesto.tm_mon=this->m-1;
+  tiempo_descompuesto.tm_year=this->a-1900;
+  std::setlocale(LC_TIME, "es_ES.UTF-8");
+  mktime(&tiempo_descompuesto);
+  strftime(B,50,"%A %d de %B de %Y",&tiempo_descompuesto);
+  return (const char*)B;
 
 }
 
