@@ -148,23 +148,16 @@ Cadena Cadena::substr (unsigned i,unsigned t) const //Devuelve Cadena&
 {
 
 
-	if (i >= this->length() || (t + i) >= this->length() || (t + i) < i)
+	if (i >= this->length() || (t + i) > this->length() || (t + i) < i)
 	{
 		throw std::out_of_range("Error");
 	}
-	else
-	{
-		Cadena cad(t+1);
-		unsigned j = 0;
-		while (j < t)
-		{
-			cad.s_[j] = this->s_[i];
-			++j;
-			++i;
-		}
-		cad.s_[t] = '\0';
-		return cad;
-	}
+	char* tmp = new char[t+1];
+  std::strncpy(tmp, s_+ i,t);
+  tmp[t]='\0';
+  Cadena cad(tmp);
+  delete [] tmp;
+  return cad;
 }
 
 const char* Cadena::c_str() const noexcept

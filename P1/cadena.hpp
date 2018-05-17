@@ -26,7 +26,7 @@ class Cadena
 		Cadena& operator = (const Cadena& cad);
 		Cadena& operator = (Cadena&& cad);
 		Cadena& operator = (const char* cad);
-		int length() const noexcept{return tam_;};
+		unsigned length() const noexcept{return tam_;};
 
 		Cadena& operator += (const Cadena& cad);
 

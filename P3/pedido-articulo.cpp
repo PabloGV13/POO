@@ -4,7 +4,7 @@
 //LineaPedido
 std::ostream& operator << (std::ostream& os, const LineaPedido& lin_ped)
 {
-  os << std::fixed << std::setprecision(2) << lin_ped.cantidad() << " €\t";
+  os << std::fixed << std::setprecision(2) << lin_ped.precio_venta() << " €\t" << lin_ped.cantidad();
   return os;
 }
 

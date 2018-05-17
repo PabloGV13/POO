@@ -11,14 +11,10 @@ bool luhn(const Cadena& numero);
 Numero::Numero ( Cadena n)
 {
   if (n.length() == 0) throw Incorrecto(Razon::LONGITUD);
-  std::cout << "/* message 1 */" <<n<< '\n';
   n = n.substr(0,REMOVE - n.begin());
   if(FIND != n.end()) throw Incorrecto(Razon::DIGITOS);
-  std::cout << "/* message  2*/" <<n<< '\n';
   if(n.length()< 13 || n.length() > 19) throw Incorrecto(Razon::LONGITUD);
-  std::cout << "/* message  3*/" <<n<< '\n';
   if(!luhn(n))throw Incorrecto(Razon::NO_VALIDO);
-  std::cout << "/* message 4*/" <<n<< '\n';
   num = n;
 }
 
