@@ -11,7 +11,8 @@ class Pedido_Articulo;
 
 class Pedido {
   public:
-    Pedido(Usuario_Pedido & usuario_pedidos,Pedido_Articulo& pedido_articulo,Usuario& u, const Tarjeta& t, const Fecha& fp);
+    Pedido(Usuario_Pedido & usuario_pedidos,Pedido_Articulo& pedido_articulo,Usuario& u, const Tarjeta& t, const Fecha& fp = Fecha());
+    static int n_total_pedidos() {return N_pedidos;}
     int numero() const {return num_;}
     const Tarjeta* tarjeta()const {return tarjeta_;}
     Fecha fecha() const{return fecha_;}

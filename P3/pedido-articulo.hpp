@@ -28,16 +28,16 @@ class OrdenaPedidos:std::binary_function <Pedido*,Pedido*,bool>
 {
   public:
     bool operator() (Pedido* pe1, Pedido* pe2) const {return pe1->numero() < pe2->numero();}
-}
+};
 
 class Pedido_Articulo{
   public:
-    void pedir(const Pedido& pe, const Articulo& art, double precio, unsigned q = 1);
-    void pedir(const Articulo& art, const Pedido& pe, double precio, unsigned q = 1);
+    void pedir(Pedido& pe, Articulo& art, double precio, unsigned q = 1);
+    void pedir(Articulo& art, Pedido& pe, double precio, unsigned q = 1);
     typedef std::map<Articulo*, LineaPedido, OrdenaArticulos> ItemsPedido;
     typedef std::map<Pedido*, LineaPedido, OrdenaPedidos> Pedidos;
     ItemsPedido& detalle(Pedido& pe);
-    Pedidos& ventas(Articulo&); //&?
+    Pedidos& ventas(Articulo& art); //&?
     std::ostream& mostrarDetallePedidos(std::ostream&);
     std::ostream& mostrarVentasArticulos(std::ostream&);
 

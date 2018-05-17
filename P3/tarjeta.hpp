@@ -5,6 +5,7 @@
 #include "../P1/fecha.hpp"
 #include "../P1/cadena.hpp"
 #include "usuario.hpp"
+#include <cctype>
 
 class Numero {
 
@@ -14,6 +15,11 @@ class Numero {
     Numero(Cadena n);
     operator const char*() const{return num.c_str();}
     friend bool operator < (const Numero& n1, const Numero& n2);
+
+    struct EsDigito: public std::unary_function<char ,bool>
+    {
+      bool operator()(const unsigned char c) const {return std::isdigit(c);}
+    };
 
     class Incorrecto{
       public:

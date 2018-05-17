@@ -1,10 +1,10 @@
-#include "tarjeta.hpp"
 #include <algorithm>
-#include <cctype>
+#include <functional>
 #include <iomanip>
+#include "tarjeta.hpp"
 
-#define REMOVE remove_if(n.begin(),n.end(),[](unsigned char x){return isspace(x);})
-#define COUNT count_if(n.begin(),n.end(),static_cast<int(*)(int)>(isdigit))
+#define REMOVE std::remove_if(n.begin(),n.end(),[](unsigned char x){return isspace(x);})
+#define FIND std::find_if(n.begin(),n.end(),std::not1(EsDigito()))
 
 
 bool luhn(const Cadena& numero);
@@ -13,7 +13,7 @@ Numero::Numero ( Cadena n)
 {
   if (n.length() == 0) throw Incorrecto(Razon::LONGITUD);
   n = n.substr(0,REMOVE - n.begin());
-  if(COUNT != n.length()) throw Incorrecto(Razon::DIGITOS);
+  if(FIND != n.end()) throw Incorrecto(Razon::DIGITOS);
   if(n.length()< 13 || n.length() > 19) throw Incorrecto(Razon::LONGITUD);
   if(!luhn(n))throw Incorrecto(Razon::NO_VALIDO);
   num = n;
