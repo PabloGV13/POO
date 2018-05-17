@@ -16,9 +16,9 @@ class Numero {
     operator const char*() const{return num.c_str();}
     friend bool operator < (const Numero& n1, const Numero& n2);
 
-    struct EsDigito: public std::unary_function<char ,bool>
+    struct EsDigito: public std::unary_function<const char ,bool>
     {
-      bool operator()(const unsigned char c) const {return std::isdigit(c);}
+      bool operator()(const char& c) const {return std::isdigit(c);}
     };
 
     class Incorrecto{

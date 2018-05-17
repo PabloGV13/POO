@@ -6,6 +6,7 @@
 #include "../P1/cadena.hpp"
 #include <cstring>
 #include <stdexcept>
+using namespace std;
 class Articulo {
 
 public:
